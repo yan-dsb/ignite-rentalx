@@ -1,11 +1,14 @@
+import 'express-async-errors';
 import 'reflect-metadata';
-import express from 'express';
+import 'dotenv/config';
+import express, { NextFunction, Request, Response } from 'express';
 import swaggerUI from 'swagger-ui-express';
 
 import './database';
 import './shared/container';
 
 import { router } from './routes';
+import { AppError } from './shared/errors/AppError';
 import swaggerFile from './swagger.json';
 
 const app = express();
@@ -16,13 +19,16 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerFile));
 
 app.use(router);
 
-app.get('/', (request, response) => {
-  return response.json({ mesasage: 'Hello world' });
-});
+app.use(
+  (err: Error, request: Request, response: Response, next: NextFunction) => {
+    if (err instanceof AppError) {
+      return response.status(err.statusCode).json({ error: err.message });
+    }
 
-app.post('/courses', (request, response) => {
-  const { name } = request.body;
-  return response.json({ name });
-});
+    console.error(err);
+
+    return response.status(500).json({ error: 'Internal server error' });
+  }
+);
 
 app.listen(3333, () => console.log('Started listening on port 3333'));
