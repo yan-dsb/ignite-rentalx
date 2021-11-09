@@ -2,5 +2,8 @@ node_modules
 .vscode
 tmp/*
 !tmp/.gitkeep
+!tmp/avatar
+tmp/avatar/*
+!tmp/avatar/.gitkeep
 .DS_Store
 .env
