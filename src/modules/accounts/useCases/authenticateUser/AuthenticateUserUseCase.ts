@@ -1,13 +1,17 @@
 import { sign } from 'jsonwebtoken';
 import { inject, injectable } from 'tsyringe';
 
-import { AppError } from '../../../../shared/errors/AppError';
-import { IHashProvider } from '../../providers/HashProvider/IHashProvider';
-import { IUsersRepository } from '../../repositories/IUsersRepository';
+import { IHashProvider } from '@modules/accounts/providers/HashProvider/IHashProvider';
+import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
+import { AppError } from '@shared/errors/AppError';
 
 interface IRequest {
   email: string;
   password: string;
+}
+
+interface IResponse {
+  token: string;
 }
 
 @injectable()
@@ -17,7 +21,7 @@ class AuthenticateUserUseCase {
     @inject('HashProvider') private hashProvider: IHashProvider
   ) {}
 
-  async execute({ email, password }: IRequest): Promise<string> {
+  async execute({ email, password }: IRequest): Promise<IResponse> {
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
@@ -38,7 +42,7 @@ class AuthenticateUserUseCase {
       expiresIn: '1d'
     });
 
-    return token;
+    return { token };
   }
 }
 

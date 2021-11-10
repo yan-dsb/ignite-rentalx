@@ -7,3 +7,4 @@ tmp/avatar/*
 !tmp/avatar/.gitkeep
 .DS_Store
 .env
+coverage

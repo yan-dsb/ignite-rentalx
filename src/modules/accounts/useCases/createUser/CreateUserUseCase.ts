@@ -1,8 +1,8 @@
 import { inject, injectable } from 'tsyringe';
 
-import { AppError } from '../../../../shared/errors/AppError';
-import { IHashProvider } from '../../providers/HashProvider/IHashProvider';
-import { IUsersRepository } from '../../repositories/IUsersRepository';
+import { IHashProvider } from '@modules/accounts/providers/HashProvider/IHashProvider';
+import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
+import { AppError } from '@shared/errors/AppError';
 
 interface IRequest {
   name: string;
