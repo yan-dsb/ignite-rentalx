@@ -5,6 +5,9 @@ tmp/*
 !tmp/avatar
 tmp/avatar/*
 !tmp/avatar/.gitkeep
+!tmp/cars
+tmp/cars/*
+!tmp/cars/.gitkeep
 .DS_Store
 .env
 coverage
