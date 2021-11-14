@@ -1,4 +1,5 @@
 import { ICreateRentalDTO } from '@modules/rentals/dtos/ICreateRentalDTO';
+import { IUpdateRentalDTO } from '@modules/rentals/dtos/IUpdateRentalDTO';
 import { Rental } from '@modules/rentals/infra/typeorm/entities/Rental';
 
 import { IRentalsRepository } from '../IRentalsRepository';
@@ -39,6 +40,20 @@ class RentalsRepositoryInMemory implements IRentalsRepository {
     );
 
     return rental;
+  }
+
+  async findByID(id: string): Promise<Rental> {
+    const rental = this.rentals.find(rental => rental.id === id);
+
+    return rental;
+  }
+
+  async update({ id, total, end_date }: IUpdateRentalDTO): Promise<void> {
+    const rentalIndex = this.rentals.findIndex(rental => rental.id === id);
+
+    const rental = { ...this.rentals[rentalIndex], ...{ total, end_date } };
+
+    this.rentals[rentalIndex] = rental;
   }
 }
 

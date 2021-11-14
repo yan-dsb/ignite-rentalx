@@ -69,6 +69,7 @@ class CarsRepositoryInMemory implements ICarsRepository {
     daily_rate,
     license_plate,
     fine_amount,
+    available,
     brand,
     category_id,
     specifications
@@ -83,6 +84,7 @@ class CarsRepositoryInMemory implements ICarsRepository {
         daily_rate,
         license_plate,
         fine_amount,
+        available,
         brand,
         category_id,
         specifications

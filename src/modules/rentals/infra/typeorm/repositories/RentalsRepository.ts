@@ -1,6 +1,7 @@
 import { getRepository, Repository } from 'typeorm';
 
 import { ICreateRentalDTO } from '@modules/rentals/dtos/ICreateRentalDTO';
+import { IUpdateRentalDTO } from '@modules/rentals/dtos/IUpdateRentalDTO';
 import { IRentalsRepository } from '@modules/rentals/repositories/IRentalsRepository';
 
 import { Rental } from '../entities/Rental';
@@ -27,13 +28,34 @@ class RentalsRepository implements IRentalsRepository {
 
     return rental;
   }
+
   async findOngoingRentalByCarID(car_id: string): Promise<Rental> {
-    const rental = await this.repository.findOne({ car_id, end_date: null });
+    const rental = await this.repository.findOne({
+      where: { car_id, end_date: null }
+    });
     return rental;
   }
+
   async findOngoingRentalByUserID(user_id: string): Promise<Rental> {
-    const rental = await this.repository.findOne({ user_id, end_date: null });
+    const rental = await this.repository.findOne({
+      where: { user_id, end_date: null }
+    });
     return rental;
+  }
+
+  async findByID(id: string): Promise<Rental> {
+    const rental = await this.repository.findOne(id);
+    return rental;
+  }
+
+  async update({ id, total, end_date }: IUpdateRentalDTO): Promise<void> {
+    const rental = this.repository.create({
+      id,
+      total,
+      end_date
+    });
+
+    await this.repository.save(rental);
   }
 }
 

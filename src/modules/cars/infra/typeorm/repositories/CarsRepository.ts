@@ -78,6 +78,7 @@ class CarsRepository implements ICarsRepository {
     daily_rate,
     license_plate,
     fine_amount,
+    available,
     brand,
     category_id,
     specifications
@@ -87,12 +88,14 @@ class CarsRepository implements ICarsRepository {
       name,
       description,
       daily_rate,
+      available,
       license_plate,
       fine_amount,
       brand,
       category_id,
       specifications
     });
+
     await this.repository.save(car);
   }
 }
