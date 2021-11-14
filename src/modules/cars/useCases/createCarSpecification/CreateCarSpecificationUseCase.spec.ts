@@ -48,6 +48,6 @@ describe('Create Car Specification', () => {
 
     await expect(
       createCarSpecificationUseCase.execute({ car_id, specifications_ids })
-    ).rejects.toBeInstanceOf(AppError);
+    ).rejects.toEqual(new AppError('Car does not exists'));
   });
 });

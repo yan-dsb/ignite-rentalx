@@ -26,8 +26,18 @@ describe('Create Rental', () => {
   });
 
   it('should be able to create a new rental', async () => {
+    const car = await carsRepositoryInMemory.create({
+      brand: 'test',
+      category_id: '123',
+      daily_rate: 50,
+      description: 'test',
+      fine_amount: 20,
+      license_plate: 'TEST',
+      name: 'test'
+    });
+
     const rental = await createRentalUseCase.execute({
-      car_id: '1234',
+      car_id: car.id,
       user_id: '123',
       expected_return_date: dateAdd24Hours
     });
@@ -49,7 +59,7 @@ describe('Create Rental', () => {
         user_id: '123',
         expected_return_date: dateAdd24Hours
       })
-    ).rejects.toBeInstanceOf(AppError);
+    ).rejects.toEqual(new AppError('Car is unavailable'));
   });
 
   it('should not be able to create a new rental, user is renting another car at the moment', async () => {
@@ -65,7 +75,9 @@ describe('Create Rental', () => {
         user_id: rental.user_id,
         expected_return_date: dateAdd24Hours
       })
-    ).rejects.toBeInstanceOf(AppError);
+    ).rejects.toEqual(
+      new AppError('User is renting another car at the moment')
+    );
   });
 
   it('should not be able to create a new rental with invalid return date, minimum 24 hours difference', async () => {
@@ -75,6 +87,8 @@ describe('Create Rental', () => {
         user_id: '1234',
         expected_return_date: new Date()
       })
-    ).rejects.toBeInstanceOf(AppError);
+    ).rejects.toEqual(
+      new AppError('Invalid return date, minimum 24 hours difference')
+    );
   });
 });
