@@ -8,6 +8,7 @@ interface IRentalsRepository {
   findOngoingRentalByUserID(user_id: string): Promise<Rental>;
   findByID(id: string): Promise<Rental>;
   update(data: IUpdateRentalDTO): Promise<void>;
+  findAllByUserID(user_id: string): Promise<Rental[]>;
 }
 
 export { IRentalsRepository };

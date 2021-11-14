@@ -69,3 +69,11 @@ Caso haja multa, deverá ser somado ao total do aluguel.
 O usuário deve estar logado.
 Se o carro já foi devolvido, não deixar devolver novamente.
 
+# Listagem de Alugueis para usuário
+
+**RF**
+Deve ser possível realizar a busca de todos os alugueis para o usuário
+
+**RN**
+O usuário deve estar logado.
+
