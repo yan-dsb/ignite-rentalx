@@ -31,6 +31,12 @@ class DayjsDateProvider implements IDateProvider {
     const hourDifference = dayjs(end_date_utc).diff(start_date_utc, 'days');
     return hourDifference;
   }
+
+  addDays(days: number): Date {
+    const newDateAdded = dayjs().add(days, 'days').toDate();
+
+    return newDateAdded;
+  }
 }
 
 export { DayjsDateProvider };
