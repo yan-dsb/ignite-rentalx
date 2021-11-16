@@ -1,5 +1,7 @@
 import { HashProviderInMemory } from '@modules/accounts/providers/HashProvider/in-memory/HashProviderInMemory';
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
+import { UsersTokensRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersTokensRepositoryInMemory';
+import { DayjsDateProvider } from '@shared/container/providers/DateProvider/implementations/DayjsDateProvider';
 import { AppError } from '@shared/errors/AppError';
 
 import { CreateUserUseCase } from '../createUser/CreateUserUseCase';
@@ -7,6 +9,8 @@ import { AuthenticateUserUseCase } from './AuthenticateUserUseCase';
 
 let usersRepositoryInMemory: UsersRepositoryInMemory;
 let hashProviderInMemory: HashProviderInMemory;
+let usersTokensRepositoryInMemory: UsersTokensRepositoryInMemory;
+let dayjsDateProvider: DayjsDateProvider;
 let createUserUseCase: CreateUserUseCase;
 let authenticateUserUseCase: AuthenticateUserUseCase;
 
@@ -14,13 +18,17 @@ describe('Authenticate User', () => {
   beforeEach(() => {
     usersRepositoryInMemory = new UsersRepositoryInMemory();
     hashProviderInMemory = new HashProviderInMemory();
+    usersTokensRepositoryInMemory = new UsersTokensRepositoryInMemory();
+    dayjsDateProvider = new DayjsDateProvider();
     createUserUseCase = new CreateUserUseCase(
       usersRepositoryInMemory,
       hashProviderInMemory
     );
     authenticateUserUseCase = new AuthenticateUserUseCase(
       usersRepositoryInMemory,
-      hashProviderInMemory
+      hashProviderInMemory,
+      usersTokensRepositoryInMemory,
+      dayjsDateProvider
     );
   });
 
