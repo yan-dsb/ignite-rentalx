@@ -11,3 +11,4 @@ tmp/cars/*
 .DS_Store
 .env
 coverage
+dist/
