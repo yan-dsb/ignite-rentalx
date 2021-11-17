@@ -16,6 +16,11 @@ interface IRequest {
 interface IResponse {
   token: string;
   refresh_token: string;
+  user: {
+    id: string;
+    name: string;
+    email: string;
+  };
 }
 
 @injectable()
@@ -73,7 +78,15 @@ class AuthenticateUserUseCase {
       user_id: user.id
     });
 
-    return { token, refresh_token };
+    return {
+      token,
+      refresh_token,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email
+      }
+    };
   }
 }
 
