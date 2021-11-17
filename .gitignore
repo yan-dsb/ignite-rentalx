@@ -12,3 +12,4 @@ tmp/cars/*
 .env
 coverage
 dist/
+ormconfig.json
